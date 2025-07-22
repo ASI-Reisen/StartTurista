@@ -11,6 +11,11 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AssemblyName>StartTurista</AssemblyName>
     <RootNamespace>StartTurista</RootNamespace>
+    <ApplicationIcon>Assets\tur-ve.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
 
 </Project>

@@ -7,7 +7,6 @@ namespace StartTurista
 {
     public partial class MainForm : Form
     {
-        private const string TURISTA_DATA_PATH = @"C:\ASI\Turista\Daten";
         private const string TURISTA_EXE_PATH = @"C:\ASI\Turista\Programm\turista-ve.exe";
         private const string TARGET_INI = @"C:\ASI\Turista\Daten\turista.ini";
 
@@ -79,25 +78,8 @@ namespace StartTurista
         {
             try
             {
-                // Determine source ini file
-                string sourceIni = environment switch
-                {
-                    "prod" => Path.Combine(TURISTA_DATA_PATH, "turista_prod.ini"),
-                    "staging" => Path.Combine(TURISTA_DATA_PATH, "turista_staging.ini"),
-                    "local" => Path.Combine(TURISTA_DATA_PATH, "turista_local.ini"),
-                    _ => throw new ArgumentException("Invalid environment")
-                };
-
-                // Check if source file exists
-                if (!File.Exists(sourceIni))
-                {
-                    MessageBox.Show($"Source configuration file not found:\n{sourceIni}", 
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Copy ini file
-                File.Copy(sourceIni, TARGET_INI, true);
+                // Generate ini file dynamically
+                IniConfiguration.GenerateIniFile(environment, TARGET_INI);
 
                 // Check if executable exists
                 if (!File.Exists(TURISTA_EXE_PATH))
